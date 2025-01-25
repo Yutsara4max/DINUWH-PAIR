@@ -12,26 +12,9 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      background-image: url('https://i.ibb.co/yV9VhvH/1750625a01a02bb7.jpg');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
+      background-color: #f3c715; /* Yellow background color */
       font-family: 'Arial', sans-serif;
       color: #fff;
-    }
-
-    #dinuwh-label {
-      font-size: 20px;
-      font-weight: bold;
-      color: #f3c715;
-      text-align: center;
-      margin-bottom: 15px;
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 10px;
-      border-radius: 5px;
-      position: absolute;
-      top: 10px;
-      width: 100%;
     }
 
     .container {
@@ -51,8 +34,44 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
     }
 
+    #text {
+      color: #ffffff;
+    }
+
     .input-container input {
       color: #ffffff;
+    }
+
+    .centered-text {
+      color: #ffffff;
+    }
+
+    .input-container {
+      display: flex;
+      background: #ffffff;
+      border-radius: 1rem;
+      padding: 0.3rem;
+      gap: 0.3rem;
+      max-width: 300px;
+      width: 100%;
+    }
+
+    .input-container input {
+      border-radius: 0.8rem 0 0 0.8rem;
+      background: #000000;
+      width: 89%;
+      flex-basis: 75%;
+      padding: 1rem;
+      border: none;
+      border-left: 2px solid #075e54;
+      color: #ecf0f1;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .input-container input:focus {
+      border-left: 2px solid #075e54;
+      outline: none;
+      box-shadow: inset 13px 13px 10px #075e54, inset -13px -13px 10px #2c3e50;
     }
 
     .input-container button {
@@ -74,15 +93,78 @@
     }
 
     #waiting-message {
-      color: #ffffff;
+      color: #ff7f50; /* Change this to orange or any color you like */
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      animation: fadeIn 2s ease-in-out infinite;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      50% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    @media (max-width: 500px) {
+      .input-container {
+        flex-direction: column;
+      }
+
+      .input-container input {
+        border-radius: 0.8rem;
+      }
+
+      .input-container button {
+        padding: 1rem;
+        border-radius: 0.8rem;
+      }
+    }
+
+    .centered-text {
+      text-align: center;
+    }
+
+    #loading-spinner {
+      display: none;
+      color: white;
       margin-top: 10px;
     }
 
+    .fa-spinner {
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .rose-button {
+      background-color: #ff66b2; /* Rose color */
+    }
+
+    .rose-button:hover {
+      background-color: #ff3385;
+    }
+
+    #copy-button {
+      margin-top: 20px;
+      background-color: #ff66b2;
+      padding: 10px 20px;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #copy-button:hover {
+      background-color: #ff3385;
+    }
   </style>
 </head>
 <body>
-  <!-- Add DINUWH-MD label here -->
-  <div id="dinuwh-label">DINUWH-MD</div>
   <div class="container">
     <div class="main">
       <div class="box" id="box">
@@ -94,25 +176,43 @@
             <h6>🔢 Enter your number with country code.</h6>
             <div class="input-container">
               <input placeholder="+94729xxxxxx" type="number" id="number" placeholder="❗ Enter your phone number with country code" name="">
-              <button id="submit">Submit</button>
+              <button id="submit" class="rose-button">Submit</button>
             </div>
-            <div id="waiting-message" style="display:none;">Please wait...</div>
-            <br>
-            <br>
+            <div id="waiting-message" style="display:none;">Please wait...</div> <!-- Message element -->
+            <div id="loading-spinner">
+              <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <br><br>
             <main id="pair"></main>
+            <button id="copy-button" style="display:none;">Copy Code</button> <!-- Copy button -->
           </p>
         </div>
       </div>
     </div>
   </div>
-  <script
-  src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"
-  ></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
   <script>
     let a = document.getElementById("pair");
     let b = document.getElementById("submit");
     let c = document.getElementById("number");
     let box = document.getElementById("box");
+    let waitingMessage = document.getElementById("waiting-message");
+    let copyButton = document.getElementById("copy-button");
+
+    async function Copy() {
+      let text = document.getElementById("copy").innerText;
+      let obj = document.getElementById("copy");
+      await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
+      obj.innerText = "✔️ COPIED";
+      obj.style = "color:red;font-weight:bold";
+      obj.size = "5";
+      setTimeout(() => {
+        obj.innerText = text;
+        obj.style = "color:white;font-weight-bold";
+        obj.size = "5";
+      }, 500);
+    }
 
     b.addEventListener("click", async (e) => {
       e.preventDefault();
@@ -138,13 +238,17 @@
         c.type = "text";
         c.value = "+" + bb;
         c.style = "color:white;font-size:20px";
-        document.getElementById("waiting-message").style.display = "block";
+        // Show the waiting message
+        waitingMessage.style.display = "block";
+        document.getElementById("loading-spinner").style.display = "block";
+        a.innerHTML = ''; // Clear the previous content
+        b.disabled = true; // Disable the button while loading
         let { data } = await axios(`/code?number=${bc}`);
         let code = data.code || "❗ Service Unavailable";
         a.innerHTML = '<font id="copy" onclick="Copy()" style="color:red;font-weight:bold" size="5">CODE: <span style="color:white;font-weight:bold">' + code + '</span></font><br><br><br>';
-        document.getElementById("waiting-message").style.display = "none";
-      }
-    });
-  </script>
-</body>
-</html>
+        // Show the Copy button
+        copyButton.style.display = "block";
+        // Hide the loading spinner and waiting message when the process is complete
+        waitingMessage.style.display = "none";
+        document.getElementById("loading-spinner").style.display = "none";
+        // Enable the submit
