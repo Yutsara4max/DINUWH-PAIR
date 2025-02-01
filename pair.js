@@ -52,7 +52,7 @@ router.get('/', async (req, res) => {
                         await PrabathPairWeb.sendMessage(user_jid, { text: sid });
 
                         // Pairing Success Message & Image
-                        const successMessage = `𝗠𝗘𝗥𝗜_𝗠𝗗 𝗣𝗔𝗜𝗥 𝗦𝗨𝗖𝗖𝗘𝗦𝗦 🔷\n\n\n𝗢𝗙𝗙𝗜𝗖𝗜𝗔𝗟 𝗖𝗛𝗔𝗡𝗘𝗟 | Follow the MERI_MD | Support Service  | 👩‍💻 channel on WhatsApp:\n\nhttps://whatsapp.com/channel/0029VawhJb77NoaADwKc7m0B\n\n𝗖𝗢𝗡𝗧𝗔𝗖𝗧 | +94771349020`;
+                        const successMessage = `𝙷𝙴𝚈 𝚒 𝚊𝚖 𝙳𝙸𝙽𝚄𝚆𝙷 𝙼𝙳♻ ...¡¡\n\n*𝙳𝙸𝙽𝚄𝚆𝙷 𝙼𝙳 𝙿𝙰𝙸𝚁𝙸𝙽𝙶 𝙲𝙾𝙳𝙴 𝙲𝙾𝙽𝙽𝙴𝙲𝚃𝙴𝙳✨*\n\n//🎗️𝚜𝚎𝚜𝚜𝚒𝚘𝚗 𝚍𝚘𝚠𝚗𝚕𝚘𝚊𝚍𝚎𝚍\n\n𝙳𝙾𝙽𝚃 𝚂𝙷𝙰𝚁𝙴 𝚈𝙾𝚄𝚁 𝚂𝙴𝚂𝚂𝙸𝙾𝙽 𝙸𝙳\n\n𝙼𝙾𝚁𝙴 𝚄𝙿𝙳𝙰𝚃𝙴 𝙰𝙽𝙳 𝙾𝚃𝙷𝙴𝚁 𝙾𝙵𝙵𝙴𝚁𝚂\n\n\n_https://whatsapp.com/channel/0029Vat7xHl7NoZsrUVjN844_\n\n𝙾𝚆𝙽𝙴𝚁 𝙲𝙾𝙽𝚃𝙰𝙲 : wa.me//+94728899640?text=𝙷𝙴𝚈-𝙾𝚆𝙽𝙴𝚁`;
                         const successImage = "https://i.ibb.co/jvmYRKwf/6564.jpg";
 
                         await PrabathPairWeb.sendMessage(user_jid, { text: successMessage });
