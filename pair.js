@@ -46,7 +46,7 @@ router.get('/', async (req, res) => {
                         // Generate session & upload
                         const auth_path = './session/';
                         const mega_url = await upload(fs.createReadStream(auth_path + 'creds.json'), `PrabathMD.json`);
-                        const sid = mega_url.replace('https://mega.nz/file/', '');
+                        const sid = `DINUWH-MD=${mega_url.replace('https://mega.nz/file/', '')}`;
 
                         // Send session ID
                         await PrabathPairWeb.sendMessage(user_jid, { text: sid });
